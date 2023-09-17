@@ -45,12 +45,24 @@ function App() {
         idRef.current += 1;
     };
 
+    const onUpdate = (targetId) => {
+        setTodo(
+            todo.map((it) =>
+                it.id === targetId ? {...it, isDone: !it.isDone } : it
+            )
+        )
+    }
+
+    const onDelete = (targetId) => {
+        /* 클릭된 요소를 제외 한 새 배열로 리스트 리렌더링 */
+        setTodo(todo.filter((it)  => it.id !== targetId));
+    };
 
     return (
     <div className="App">
         <Header />
         <TodoEditor onCreate={onCreate} />
-        <TodoList todo={todo} />
+        <TodoList todo={todo} onUpdate={onUpdate} onDelete={onDelete} />
     </div>
     );
 }
